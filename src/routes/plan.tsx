@@ -77,6 +77,7 @@ function PlanPage() {
 
   async function next() {
     const ok = await trigger(FORM_STEPS[step]!.fields as unknown as (keyof EventFormInput)[]);
+    console.log("TRIGGER", ok, JSON.stringify(form.formState.errors), JSON.stringify(form.getValues()));
     if (ok) setStep((s) => Math.min(s + 1, FORM_STEPS.length - 1));
   }
 
