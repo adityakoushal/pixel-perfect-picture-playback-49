@@ -61,9 +61,9 @@ describe("tasks", () => {
   it("toggling updates progress", () => {
     const plan = assemblePlan("x", details, generateDemoContent(details), "demo");
     const total = plan.tasks.length;
-    const toggled = toggleTask(plan.tasks, plan.tasks[0].id);
+    const toggled = toggleTask(plan.tasks, plan.tasks[0]!.id);
     expect(taskProgress(toggled).done).toBe(1);
-    expect(taskProgress(toggleTask(toggled, plan.tasks[0].id)).done).toBe(0);
+    expect(taskProgress(toggleTask(toggled, plan.tasks[0]!.id)).done).toBe(0);
     expect(taskProgress(toggled).total).toBe(total);
   });
   it("empty list is 0%", () => expect(taskProgress([]).percent).toBe(0));

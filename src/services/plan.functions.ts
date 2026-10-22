@@ -7,13 +7,13 @@ import { mapGatewayStatus, statusFromError, type PlanError } from "./ai-errors";
 export type GeneratePlanResult = { ok: true; content: PlanContent } | { ok: false; error: PlanError };
 
 export const getAiStatus = createServerFn({ method: "GET" }).handler(async () => ({
-  configured: Boolean(process.env.LOVABLE_API_KEY),
+  configured: Boolean(process.env['LOVABLE_API_KEY']),
 }));
 
 export const generatePlanWithAi = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => eventSchema.parse(input))
   .handler(async ({ data }): Promise<GeneratePlanResult> => {
-    const apiKey = process.env.LOVABLE_API_KEY;
+    const apiKey = process.env['LOVABLE_API_KEY'];
     if (!apiKey) {
       return {
         ok: false,
