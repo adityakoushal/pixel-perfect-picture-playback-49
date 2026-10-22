@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { AlertTriangle, ArrowLeft, ArrowRight, Bot, Check, FlaskConical, Loader2, RotateCcw, Sparkles } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -104,7 +104,11 @@ function PlanPage() {
     }
   }
 
-  const onSubmit = handleSubmit((d) => generate(d));
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (step < FORM_STEPS.length - 1) { void next(); return; }
+    void handleSubmit((d) => generate(d))(e);
+  };
   const progress = ((step + 1) / FORM_STEPS.length) * 100;
 
   return (
@@ -235,9 +239,9 @@ function PlanPage() {
             <ArrowLeft /> Back
           </Button>
           {step < FORM_STEPS.length - 1 ? (
-            <Button type="button" variant="hero" onClick={next}>Continue <ArrowRight /></Button>
+            <Button key="continue" type="button" variant="hero" onClick={next}>Continue <ArrowRight /></Button>
           ) : (
-            <Button type="submit" variant="hero" disabled={busy}>
+            <Button key="submit" type="submit" variant="hero" disabled={busy}>
               {busy ? <><Loader2 className="animate-spin" /> {mode === "ai" ? "Planning with AI…" : "Building plan…"}</> : <><Sparkles /> Generate My Plan</>}
             </Button>
           )}
