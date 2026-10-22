@@ -11,7 +11,7 @@ export const getAiStatus = createServerFn({ method: "GET" }).handler(async () =>
 }));
 
 export const generatePlanWithAi = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => eventSchema.parse(input))
+  .validator((input: unknown) => eventSchema.parse(input))
   .handler(async ({ data }): Promise<GeneratePlanResult> => {
     const apiKey = process.env['LOVABLE_API_KEY'];
     if (!apiKey) {
