@@ -18,7 +18,7 @@ export function Logo() {
       <span className="grid size-9 place-items-center rounded-xl bg-gradient-gold text-gold-foreground shadow-elegant">
         <Sparkles className="size-5" aria-hidden />
       </span>
-      Celebra<span className="text-gradient-gold">AI</span>
+      <span>Celebra<span className="text-gradient-gold">AI</span></span>
     </Link>
   );
 }

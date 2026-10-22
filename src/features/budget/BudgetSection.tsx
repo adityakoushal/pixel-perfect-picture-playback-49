@@ -10,7 +10,7 @@ export function BudgetSection({ lines, currency, onSpentChange }: { lines: Budge
     <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
       <div>
         <div className="h-64" role="img" aria-label="Budget allocation chart">
-          <ResponsiveContainer>
+          <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie data={lines} dataKey="amount" nameKey="label" innerRadius="58%" outerRadius="95%" paddingAngle={2} stroke="none">
                 {lines.map((l, i) => <Cell key={l.key} fill={COLORS[i % COLORS.length]} />)}
