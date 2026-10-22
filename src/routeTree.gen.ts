@@ -10,33 +10,115 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as FeaturesRouteImport } from './routes/features'
+import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as PlanRouteImport } from './routes/plan'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardPlanIdRouteImport } from './routes/dashboard.$planId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeaturesRoute = FeaturesRouteImport.update({
+  id: '/features',
+  path: '/features',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HowItWorksRoute = HowItWorksRouteImport.update({
+  id: '/how-it-works',
+  path: '/how-it-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlanRoute = PlanRouteImport.update({
+  id: '/plan',
+  path: '/plan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardPlanIdRoute = DashboardPlanIdRouteImport.update({
+  id: '/dashboard/$planId',
+  path: '/dashboard/$planId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/features': typeof FeaturesRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/plan': typeof PlanRoute
+  '/dashboard/$planId': typeof DashboardPlanIdRoute
+  '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/features': typeof FeaturesRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/plan': typeof PlanRoute
+  '/dashboard/$planId': typeof DashboardPlanIdRoute
+  '/dashboard': typeof DashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/features': typeof FeaturesRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/plan': typeof PlanRoute
+  '/dashboard/$planId': typeof DashboardPlanIdRoute
+  '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/features'
+    | '/how-it-works'
+    | '/plan'
+    | '/dashboard/$planId'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/features'
+    | '/how-it-works'
+    | '/plan'
+    | '/dashboard/$planId'
+    | '/dashboard'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/features'
+    | '/how-it-works'
+    | '/plan'
+    | '/dashboard/$planId'
+    | '/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  FeaturesRoute: typeof FeaturesRoute
+  HowItWorksRoute: typeof HowItWorksRoute
+  PlanRoute: typeof PlanRoute
+  DashboardPlanIdRoute: typeof DashboardPlanIdRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +130,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/features': {
+      id: '/features'
+      path: '/features'
+      fullPath: '/features'
+      preLoaderRoute: typeof FeaturesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/how-it-works': {
+      id: '/how-it-works'
+      path: '/how-it-works'
+      fullPath: '/how-it-works'
+      preLoaderRoute: typeof HowItWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/plan': {
+      id: '/plan'
+      path: '/plan'
+      fullPath: '/plan'
+      preLoaderRoute: typeof PlanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/$planId': {
+      id: '/dashboard/$planId'
+      path: '/dashboard/$planId'
+      fullPath: '/dashboard/$planId'
+      preLoaderRoute: typeof DashboardPlanIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  FeaturesRoute: FeaturesRoute,
+  HowItWorksRoute: HowItWorksRoute,
+  PlanRoute: PlanRoute,
+  DashboardPlanIdRoute: DashboardPlanIdRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
