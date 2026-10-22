@@ -36,8 +36,7 @@ export function categoryWeights(type: EventDetails["type"], venue: EventDetails[
   } else if (venue === "Hotel") {
     w.venue += 5;
     w.decoration -= 3;
-    w.transport -= Math.min(2, w.transport);
-    w.catering -= 5 - 3 - Math.min(2, BASE[type].transport);
+    w.catering -= 2;
   }
   return w;
 }
