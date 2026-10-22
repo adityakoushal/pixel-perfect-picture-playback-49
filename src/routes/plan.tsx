@@ -76,9 +76,7 @@ function PlanPage() {
   }, [edit, reset]);
 
   async function next() {
-    let ok = false;
-    try { ok = await trigger(FORM_STEPS[step]!.fields as unknown as (keyof EventFormInput)[]); } catch (e) { console.log("TRIGERR", String(e), (e as Error).stack); }
-    console.log("TRIGGER", ok, JSON.stringify(form.formState.errors), JSON.stringify(form.getValues()));
+    const ok = await trigger(FORM_STEPS[step]!.fields as unknown as (keyof EventFormInput)[]);
     if (ok) setStep((s) => Math.min(s + 1, FORM_STEPS.length - 1));
   }
 
