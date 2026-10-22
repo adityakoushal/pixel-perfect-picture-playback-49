@@ -1,29 +1,54 @@
-# Welcome to your Lovable project
+# CelebraAI — Your Intelligent Celebration Planner
 
-This project was built with [Lovable](https://lovable.dev).
+An AI-powered planner for weddings, birthdays, anniversaries, corporate events, festivals and community gatherings. Enter your event details and get a concept, colour palette, itemised budget with chart, timeline, grouped checklist, vendor guidance, personalised ideas and a backup plan.
 
-## Build with Lovable
+## Features
+- Multi-step, validated planning form (React Hook Form + Zod)
+- AI plan generation through a server function (key never reaches the browser)
+- Clearly labelled **demo mode** (templates + budget rules, no AI call) when AI is unavailable
+- Budget allocation computed in code — amounts always sum exactly to your total
+- Spending tracker, task completion progress, edit & regenerate, print
+- Plans saved in browser local storage (no account)
+- Light/dark theme toggle
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+## Tech
+TanStack Start (React 19 + TypeScript, Vite), Tailwind CSS v4, Lucide, Recharts, Vercel AI SDK via the Lovable AI Gateway.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+## Structure
+```
+src/
+  routes/                 pages (/, /features, /how-it-works, /about, /plan, /dashboard, /dashboard/$planId)
+  components/             layout + marketing UI
+  features/
+    budget/               allocation rules + budget UI
+    checklist/            task helpers
+    event-planner/        demo engine, plan assembly, form widgets
+  schemas/                Zod schemas (event input, plan/AI output)
+  services/               AI server function, AI client (server-only), storage, error mapping
+  test/                   Vitest tests
 ```
 
-## Built with
+## Setup
+Prerequisites: Bun (or Node 20+).
+```
+bun install
+cp .env.example .env    # optional, for AI locally
+bun run dev
+```
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+### Environment variables
+| Name | Where | Purpose |
+| --- | --- | --- |
+| `LOVABLE_API_KEY` | server only | Lovable AI Gateway key. If absent, the app offers demo mode only. |
+
+On Lovable this key is provisioned automatically. Never prefix it with `VITE_`.
+
+## Commands
+- `bun run dev` — development server
+- `bun run build` — production build
+- `bun run test` — run tests (form validation, budget arithmetic, tasks, storage, AI output validation, error mapping)
+
+## Limitations
+- Plans live only in the current browser; clearing data or switching devices loses them.
+- Budget figures are illustrative allocations, not market prices or quotations.
+- No real vendors, reviews or availability are suggested.
