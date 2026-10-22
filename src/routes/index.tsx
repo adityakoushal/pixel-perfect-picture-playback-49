@@ -19,18 +19,18 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <>
-      <section className="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-2 lg:pt-24">
+      <section className="mx-auto grid max-w-7xl items-center gap-12 overflow-x-clip px-4 pb-20 pt-10 sm:px-6 lg:grid-cols-2 lg:pt-24">
         <div className="animate-rise">
           <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium">
             <Sparkles className="size-3.5 text-gold" aria-hidden /> AI-powered celebration planning
           </span>
-          <h1 className="mt-6 text-5xl font-semibold leading-[1.05] sm:text-6xl">
+          <h1 className="mt-6 text-4xl font-semibold leading-[1.08] sm:text-6xl">
             Every Celebration Deserves a <span className="text-gradient-gold italic">Perfect Plan.</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
             Turn your ideas, budget, and dreams into a beautifully organised event with your personal AI planning assistant.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild variant="hero" size="lg">
               <Link to="/plan">Create My Event Plan <ArrowRight /></Link>
             </Button>
@@ -52,11 +52,11 @@ function Index() {
             height={1008}
             className="aspect-[4/3] w-full rounded-3xl object-cover shadow-elegant"
           />
-          <div className="glass animate-float absolute -bottom-6 -left-4 rounded-2xl p-4 sm:-left-8">
+          <div className="glass animate-float absolute -bottom-6 left-3 rounded-2xl p-3 sm:-left-8 sm:p-4">
             <p className="text-xs text-muted-foreground">Budget allocated</p>
             <p className="font-display text-2xl">100% <span className="text-sm text-success">balanced</span></p>
           </div>
-          <div className="glass animate-float absolute -right-3 top-6 rounded-2xl p-4 [animation-delay:1.5s]">
+          <div className="glass animate-float absolute right-3 top-4 rounded-2xl p-3 sm:-right-3 sm:top-6 sm:p-4 [animation-delay:1.5s]">
             <p className="text-xs text-muted-foreground">Checklist</p>
             <p className="font-semibold">18 of 24 done</p>
           </div>

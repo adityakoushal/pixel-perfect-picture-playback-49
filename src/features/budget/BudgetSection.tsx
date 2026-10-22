@@ -29,8 +29,25 @@ export function BudgetSection({ lines, currency, onSpentChange }: { lines: Budge
           <div><dt className="text-muted-foreground">Remaining</dt><dd className={totals.remaining < 0 ? "font-semibold text-destructive" : "font-semibold text-success"}>{formatMoney(totals.remaining, currency)}</dd></div>
         </dl>
       </div>
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
+      <div className="min-w-0">
+        <ul className="space-y-3 sm:hidden" aria-label="Itemised budget">
+          {lines.map((l, i) => (
+            <li key={l.key} className="rounded-xl border border-border p-3">
+              <div className="flex items-start justify-between gap-3">
+                <span className="min-w-0 text-sm"><span className="mr-2 inline-block size-2.5 rounded-full align-middle" style={{ background: COLORS[i % COLORS.length] }} aria-hidden />{l.label}</span>
+                <span className="shrink-0 text-right text-sm tabular-nums"><span className="font-semibold">{formatMoney(l.amount, currency)}</span><span className="block text-xs text-muted-foreground">{l.percent}%</span></span>
+              </div>
+              <label className="no-print mt-2 flex items-center justify-between gap-3 text-xs text-muted-foreground">
+                Spent so far
+                <input type="number" min={0} inputMode="decimal" defaultValue={l.spent || ""} placeholder="0"
+                  onBlur={(e) => onSpentChange(l.key, Math.max(0, Number(e.target.value) || 0))}
+                  className="h-10 w-32 rounded-md border border-input bg-transparent px-3 text-right text-base tabular-nums text-foreground" />
+              </label>
+            </li>
+          ))}
+          <li className="flex justify-between px-1 pt-1 text-sm font-semibold"><span>Total</span><span>{formatMoney(totals.planned, currency)}</span></li>
+        </ul>
+        <table className="hidden w-full text-sm sm:table">
           <caption className="sr-only">Itemised budget</caption>
           <thead className="text-left text-muted-foreground">
             <tr className="border-b border-border"><th className="py-2 font-medium">Category</th><th className="py-2 text-right font-medium">Share</th><th className="py-2 text-right font-medium">Estimate</th><th className="no-print py-2 pl-4 text-right font-medium">Spent so far</th></tr>
