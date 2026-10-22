@@ -45,8 +45,8 @@ const SECTIONS = [
 
 function Panel({ id, title, icon: Icon, children }: { id: string; title: string; icon: typeof Wand2; children: ReactNode }) {
   return (
-    <section id={id} aria-labelledby={`${id}-h`} className="glass scroll-mt-24 rounded-3xl p-6 sm:p-8">
-      <h2 id={`${id}-h`} className="mb-6 flex items-center gap-3 text-2xl font-semibold">
+    <section id={id} aria-labelledby={`${id}-h`} className="glass min-w-0 scroll-mt-32 rounded-3xl p-5 sm:p-8">
+      <h2 id={`${id}-h`} className="mb-5 flex items-center gap-3 text-xl font-semibold sm:text-2xl">
         <Icon className="size-5 text-gold" aria-hidden /> {title}
       </h2>
       {children}
@@ -118,37 +118,37 @@ function PlanView() {
             <Badge variant="outline">{d.style}</Badge>
             {plan.source === "ai" ? <Badge className="bg-gradient-primary">AI generated</Badge> : <Badge variant="outline" className="border-gold text-gold">Demo mode · templates, no AI</Badge>}
           </div>
-          <h1 className="mt-3 text-4xl font-semibold sm:text-5xl">{d.name}</h1>
+          <h1 className="mt-3 break-words text-3xl font-semibold sm:text-5xl">{d.name}</h1>
           <p className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted-foreground">
             <span className="flex items-center gap-1.5"><CalendarDays className="size-4" aria-hidden />{new Date(d.date + "T00:00:00").toLocaleDateString(undefined, { dateStyle: "full" })}</span>
             <span className="flex items-center gap-1.5"><MapPin className="size-4" aria-hidden />{d.location}</span>
             <span className="flex items-center gap-1.5"><Users className="size-4" aria-hidden />{d.guests} guests</span>
           </p>
         </div>
-        <div className="no-print flex flex-wrap gap-2">
+        <div className="no-print grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:flex-wrap">
           <Button variant="outline" onClick={() => navigate({ to: "/plan", search: { edit: plan.id } })}><Pencil /> Edit details</Button>
           <Button variant="outline" onClick={regenerate} disabled={regen}>{regen ? <Loader2 className="animate-spin" /> : <RefreshCw />} Regenerate</Button>
           <Button variant="outline" onClick={() => window.print()}><Printer /> Print</Button>
           <ConfirmDelete name={d.name} onConfirm={() => { deletePlan(plan.id); toast.success("Plan deleted"); navigate({ to: "/dashboard" }); }}>
-            <Button variant="ghost" size="icon" aria-label="Delete plan"><Trash2 /></Button>
+            <Button variant="ghost" aria-label="Delete plan" className="sm:w-10 sm:px-0"><Trash2 /><span className="sm:hidden">Delete</span></Button>
           </ConfirmDelete>
         </div>
       </div>
 
-      <dl className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <dl className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {[
           ["Days to go", days >= 0 ? String(days) : "Past"],
           ["Total budget", formatMoney(totals.planned, d.currency)],
           ["Remaining", formatMoney(totals.remaining, d.currency)],
           ["Per guest", formatMoney(perGuest(totals.planned, d.guests), d.currency)],
         ].map(([k, v]) => (
-          <div key={k} className="glass rounded-2xl p-5"><dt className="text-xs uppercase tracking-wider text-muted-foreground">{k}</dt><dd className="mt-1 font-display text-2xl">{v}</dd></div>
+          <div key={k} className="glass min-w-0 rounded-2xl p-4 sm:p-5"><dt className="text-[11px] uppercase tracking-wider text-muted-foreground sm:text-xs">{k}</dt><dd className="mt-1 truncate font-display text-xl sm:text-2xl">{v}</dd></div>
         ))}
       </dl>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[200px_1fr]">
-        <nav aria-label="Plan sections" className="no-print lg:sticky lg:top-24 lg:self-start">
-          <ul className="flex gap-1 overflow-x-auto lg:flex-col">
+      <div className="mt-8 grid gap-6 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-8">
+        <nav aria-label="Plan sections" className="no-print sticky top-16 z-30 -mx-4 bg-background/85 px-4 py-2 backdrop-blur-xl lg:top-24 lg:mx-0 lg:self-start lg:bg-transparent lg:p-0 lg:backdrop-blur-none">
+          <ul className="flex gap-1 overflow-x-auto [scrollbar-width:none] lg:flex-col">
             {SECTIONS.map((s) => (
               <li key={s.id}><a href={`#${s.id}`} className="flex items-center gap-2 whitespace-nowrap rounded-full px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-foreground"><s.icon className="size-4" aria-hidden />{s.label}</a></li>
             ))}
@@ -212,8 +212,8 @@ function PlanView() {
                     <h3 className="mb-2 text-sm font-semibold">{g}</h3>
                     <ul className="space-y-2">
                       {items.map((t) => (
-                        <li key={t.id} className="flex items-start gap-3">
-                          <Checkbox id={t.id} checked={t.done} onCheckedChange={() => update({ ...plan, tasks: toggleTask(plan.tasks, t.id) })} className="mt-0.5" />
+                        <li key={t.id} className="flex items-start gap-3 py-1">
+                          <Checkbox id={t.id} checked={t.done} onCheckedChange={() => update({ ...plan, tasks: toggleTask(plan.tasks, t.id) })} className="mt-0.5 size-5" />
                           <label htmlFor={t.id} className={t.done ? "text-sm text-muted-foreground line-through" : "text-sm"}>{t.title}</label>
                         </li>
                       ))}

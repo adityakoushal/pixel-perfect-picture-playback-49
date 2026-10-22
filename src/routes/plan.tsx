@@ -115,7 +115,7 @@ function PlanPage() {
     <section className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       <div className="text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">{edit ? "Edit & regenerate" : "New plan"}</p>
-        <h1 className="mt-3 text-4xl font-semibold">Tell us about your celebration</h1>
+        <h1 className="mt-3 text-3xl font-semibold sm:text-4xl">Tell us about your celebration</h1>
       </div>
 
       <ol className="mt-10 grid grid-cols-4 gap-2" aria-label="Form progress">
@@ -126,9 +126,10 @@ function PlanPage() {
           </li>
         ))}
       </ol>
+      <p className="mt-3 text-center text-xs text-muted-foreground sm:hidden">Step {step + 1} of {FORM_STEPS.length}</p>
       <p className="sr-only" aria-live="polite">Step {step + 1} of {FORM_STEPS.length}: {FORM_STEPS[step]!.title}, {Math.round(progress)}% complete</p>
 
-      <form onSubmit={onSubmit} noValidate className="glass mt-8 rounded-3xl p-6 sm:p-10">
+      <form onSubmit={onSubmit} noValidate className="glass mt-8 rounded-3xl p-5 sm:p-10">
         <h2 className="mb-6 text-2xl font-semibold">{FORM_STEPS[step]!.title}</h2>
 
         {step === 0 && (
