@@ -58,7 +58,8 @@ function PlanPage() {
   const form = useForm<EventFormInput, unknown, EventDetails>({
     resolver: zodResolver(eventSchema),
     defaultValues: DEFAULTS,
-    mode: "onTouched",
+    mode: "onSubmit",
+    reValidateMode: "onChange",
   });
   const { register, control, handleSubmit, trigger, reset, formState: { errors } } = form;
 
