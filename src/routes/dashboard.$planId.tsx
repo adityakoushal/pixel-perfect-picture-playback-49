@@ -146,8 +146,8 @@ function PlanView() {
         ))}
       </dl>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-8">
-        <nav aria-label="Plan sections" className="no-print sticky top-16 z-30 -mx-4 bg-background/85 px-4 py-2 backdrop-blur-xl lg:top-24 lg:mx-0 lg:self-start lg:bg-transparent lg:p-0 lg:backdrop-blur-none">
+      <div className="mt-8 grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-8">
+        <nav aria-label="Plan sections" className="no-print sticky top-16 z-30 -mx-4 min-w-0 bg-background/85 px-4 py-2 backdrop-blur-xl lg:top-24 lg:mx-0 lg:self-start lg:bg-transparent lg:p-0 lg:backdrop-blur-none">
           <ul className="flex gap-1 overflow-x-auto [scrollbar-width:none] lg:flex-col">
             {SECTIONS.map((s) => (
               <li key={s.id}><a href={`#${s.id}`} className="flex items-center gap-2 whitespace-nowrap rounded-full px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-foreground"><s.icon className="size-4" aria-hidden />{s.label}</a></li>
