@@ -40,7 +40,7 @@ const DEFAULTS: EventFormInput = {
   currency: "INR", style: "Elegant", venue: "Undecided", food: "Mixed", requirements: "", notes: "",
 };
 
-function FieldError({ id, msg }: { id: string; msg?: string }) {
+function FieldError({ id, msg }: { id: string; msg?: string | undefined }) {
   return msg ? <p id={id} role="alert" className="mt-1.5 text-sm text-destructive">{msg}</p> : null;
 }
 
@@ -76,7 +76,7 @@ function PlanPage() {
   }, [edit, reset]);
 
   async function next() {
-    const ok = await trigger(FORM_STEPS[step].fields as unknown as (keyof EventFormInput)[]);
+    const ok = await trigger(FORM_STEPS[step]!.fields as unknown as (keyof EventFormInput)[]);
     if (ok) setStep((s) => Math.min(s + 1, FORM_STEPS.length - 1));
   }
 
@@ -121,10 +121,10 @@ function PlanPage() {
           </li>
         ))}
       </ol>
-      <p className="sr-only" aria-live="polite">Step {step + 1} of {FORM_STEPS.length}: {FORM_STEPS[step].title}, {Math.round(progress)}% complete</p>
+      <p className="sr-only" aria-live="polite">Step {step + 1} of {FORM_STEPS.length}: {FORM_STEPS[step]!.title}, {Math.round(progress)}% complete</p>
 
       <form onSubmit={onSubmit} noValidate className="glass mt-8 rounded-3xl p-6 sm:p-10">
-        <h2 className="mb-6 text-2xl font-semibold">{FORM_STEPS[step].title}</h2>
+        <h2 className="mb-6 text-2xl font-semibold">{FORM_STEPS[step]!.title}</h2>
 
         {step === 0 && (
           <div className="grid gap-6">

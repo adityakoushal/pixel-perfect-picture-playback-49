@@ -6,7 +6,7 @@ interface Props<T extends string> {
   options: readonly T[];
   value: T | undefined;
   onChange: (v: T) => void;
-  error?: string;
+  error?: string | undefined;
 }
 
 export function ChoiceChips<T extends string>({ label, name, options, value, onChange, error }: Props<T>) {
